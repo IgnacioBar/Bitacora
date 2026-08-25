@@ -61,15 +61,15 @@ Future<void> main() async {
       systemNavigationBarIconBrightness: Brightness.dark,
     ),
   );
-  runApp(const PescatronikApp());
+  runApp(const BitacoraApp());
 }
 
-class PescatronikApp extends StatelessWidget {
-  const PescatronikApp({super.key});
+class BitacoraApp extends StatelessWidget {
+  const BitacoraApp({super.key});
 
   @override
   Widget build(BuildContext context) => MaterialApp(
-    title: 'Pescatronik',
+    title: 'Bitácora',
     debugShowCheckedModeBanner: false,
     theme: ThemeData(
       colorScheme: ColorScheme.fromSeed(
@@ -285,7 +285,7 @@ class _AppBootstrapState extends State<AppBootstrap> {
         return Scaffold(
           body: _PaperSheet(
             child: _NotebookErrorView(
-              title: 'No se pudo abrir Pescatronik',
+              title: 'No se pudo abrir Bitácora',
               message: 'Ha fallado la preparación inicial de la app.',
               onRetry: _retry,
             ),
@@ -599,7 +599,7 @@ class DiaryCoverScreen extends StatelessWidget {
   Widget build(BuildContext context) => Scaffold(
     body: Semantics(
       button: true,
-      label: 'Portada de Pescatronik',
+      label: 'Portada de Bitácora',
       child: GestureDetector(
         behavior: HitTestBehavior.opaque,
         onTap: () => _openDiary(context),
@@ -678,7 +678,7 @@ class _CoverTitleCard extends StatelessWidget {
         ),
         const SizedBox(height: 12),
         Text(
-          'Pescatronik',
+          'Bitácora',
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.headlineMedium
               ?.copyWith(fontSize: 40),
@@ -878,7 +878,7 @@ class CountryScreen extends StatelessWidget {
           const SizedBox(width: 10),
           const Expanded(
             child: Text(
-              'Pescatronik',
+              'Bitácora',
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
             ),
@@ -956,7 +956,7 @@ class HomeMenuScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Pescatronik',
+                            'Bitácora',
                             style: Theme.of(context).textTheme.titleLarge,
                           ),
                           const SizedBox(height: 4),
@@ -1011,9 +1011,9 @@ class HomeMenuScreen extends StatelessWidget {
           ),
           _HomeMenuItem(
             icon: Icons.info_outline,
-            title: 'Acerca de Pescatronik',
+            title: 'Acerca de Bitácora',
             subtitle: 'Versión, privacidad y estado',
-            onTap: () => _open(context, const AboutPescatronikScreen()),
+            onTap: () => _open(context, const AboutBitacoraScreen()),
           ),
         ],
       ),
@@ -1063,14 +1063,14 @@ class _HomeMenuItem extends StatelessWidget {
   );
 }
 
-class AboutPescatronikScreen extends StatefulWidget {
-  const AboutPescatronikScreen({super.key});
+class AboutBitacoraScreen extends StatefulWidget {
+  const AboutBitacoraScreen({super.key});
 
   @override
-  State<AboutPescatronikScreen> createState() => _AboutPescatronikScreenState();
+  State<AboutBitacoraScreen> createState() => _AboutBitacoraScreenState();
 }
 
-class _AboutPescatronikScreenState extends State<AboutPescatronikScreen> {
+class _AboutBitacoraScreenState extends State<AboutBitacoraScreen> {
   late Future<_AppDiarySummary> _summary;
 
   @override
@@ -1124,7 +1124,7 @@ class _AboutPescatronikScreenState extends State<AboutPescatronikScreen> {
                         ),
                         const SizedBox(height: 12),
                         Text(
-                          'Pescatronik',
+                          'Bitácora',
                           style: Theme.of(context).textTheme.headlineSmall,
                         ),
                         const SizedBox(height: 4),

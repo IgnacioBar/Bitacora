@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:pescatronik/main.dart';
+import 'package:bitacora/main.dart';
 
 void main() {
   testWidgets('abre el diario desde la portada', (tester) async {
@@ -18,7 +18,7 @@ void main() {
   testWidgets('muestra España como país inicial', (tester) async {
     await tester.pumpWidget(const MaterialApp(home: CountryScreen()));
 
-    expect(find.text('Pescatronik'), findsOneWidget);
+    expect(find.text('Bitácora'), findsOneWidget);
     expect(find.text('España'), findsOneWidget);
   });
 }

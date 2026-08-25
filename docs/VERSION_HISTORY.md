@@ -2,7 +2,7 @@
 
 ## v1.0.0
 
-- Primera versión estable oficial de Pescatronik.
+- Primera versión estable oficial de Bitácora.
 - Diario completo de capturas para España.
 - Biblioteca, filtros, mapas, GPS, fotos, copias de seguridad y compartir ubicaciones.
 - Optimización de fotos elegidas desde Galería Xiaomi/POCO o selector Android.
@@ -17,7 +17,7 @@
 
 ## v3.5
 
-- Pantalla “Acerca de Pescatronik”.
+- Pantalla “Acerca de Bitácora”.
 - Resumen del diario.
 - Nota de privacidad.
 - Microinteracciones hápticas.

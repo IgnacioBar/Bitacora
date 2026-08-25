@@ -1,4 +1,4 @@
-# Pescatronik
+# Bitácora
 
 Diario de pesca digital para Android creado con Flutter.
 
@@ -16,7 +16,7 @@ Diario de pesca digital para Android creado con Flutter.
 
 ## Privacidad
 
-Pescatronik guarda los datos en el dispositivo. Al compartir ubicaciones solo se envían puntos del mapa: coordenadas, especie, lugar y fecha.
+Bitácora guarda los datos en el dispositivo. Al compartir ubicaciones solo se envían puntos del mapa: coordenadas, especie, lugar y fecha.
 
 ## Estado actual
 

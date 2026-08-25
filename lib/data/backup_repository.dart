@@ -19,7 +19,7 @@ class BackupRepository {
         .toIso8601String()
         .replaceAll(':', '-')
         .replaceAll('.', '-');
-    final file = File('${folder.path}/pescatronik-v3-backup-$timestamp.json');
+    final file = File('${folder.path}/bitacora-backup-$timestamp.json');
     final captures = <Map<String, Object?>>[];
     for (final entry in catches) {
       final data = entry.toMap();
@@ -36,7 +36,7 @@ class BackupRepository {
       captures.add(data);
     }
     final payload = {
-      'app': 'Pescatronik',
+      'app': 'Bitácora',
       'backup_version': 3,
       'exported_at': DateTime.now().toUtc().toIso8601String(),
       'captures_count': catches.length,
@@ -54,7 +54,7 @@ class BackupRepository {
 
   Future<List<File>> listBackups() async {
     final folders = <Directory>[
-      Directory('/storage/emulated/0/Download/Pescatronik'),
+      Directory('/storage/emulated/0/Download/Bitacora'),
       await _appBackupFolder(),
     ];
     final files = <File>[];
@@ -63,7 +63,8 @@ class BackupRepository {
       await for (final entity in folder.list()) {
         if (entity is File &&
             entity.path.toLowerCase().endsWith('.json') &&
-            (entity.path.toLowerCase().contains('pescatronik-backup') ||
+            (entity.path.toLowerCase().contains('bitacora-backup') ||
+                entity.path.toLowerCase().contains('pescatronik-backup') ||
                 entity.path.toLowerCase().contains('pescatronik-v3-backup'))) {
           files.add(entity);
         }
@@ -142,10 +143,10 @@ class BackupRepository {
   }
 
   Future<Directory> _backupFolder() async {
-    final downloads = Directory('/storage/emulated/0/Download/Pescatronik');
+    final downloads = Directory('/storage/emulated/0/Download/Bitacora');
     try {
       await downloads.create(recursive: true);
-      final probe = File('${downloads.path}/.pescatronik-test');
+      final probe = File('${downloads.path}/.bitacora-test');
       await probe.writeAsString('ok');
       await probe.delete();
       return downloads;
