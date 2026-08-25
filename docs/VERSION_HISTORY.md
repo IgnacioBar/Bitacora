@@ -1,5 +1,13 @@
 # Historial de versiones
 
+## v1.0.1
+
+- Versión de mantenimiento tras la primera pre-release pública.
+- Actualizado el número de versión interno de la app.
+- Añadido un proceso documentado para preparar futuras releases.
+- Añadida una plantilla de notas de release para mantener un historial más claro.
+- Se mantienen los identificadores técnicos antiguos de Android por compatibilidad con instalaciones y datos existentes.
+
 ## v1.0.0
 
 - Primera versión estable oficial de Bitácora.

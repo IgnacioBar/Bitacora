@@ -20,7 +20,7 @@ Bitácora guarda los datos en el dispositivo. Al compartir ubicaciones solo se e
 
 ## Estado actual
 
-Versión actual: 1.0.0.
+Versión actual: 1.0.1.
 
 Esta versión está pensada para uso personal en Android.
 
@@ -36,6 +36,14 @@ flutter test
 flutter build apk --release --split-per-abi
 ```
 
-## Rama principal de trabajo
+## Control de versiones
 
 El desarrollo se mantiene en la rama `develop`.
+
+Las versiones publicadas se etiquetan con formato `vX.Y.Z`:
+
+- `v1.0.1`: correcciones y mantenimiento.
+- `v1.1.0`: mejoras o funciones nuevas.
+- `v2.0.0`: cambios grandes de estructura, diseño o funcionamiento.
+
+Antes de publicar una versión se revisa `docs/RELEASE_PROCESS.md`.

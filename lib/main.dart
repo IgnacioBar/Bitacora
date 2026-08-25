@@ -33,7 +33,7 @@ const _mapInk = Color(0xFF6D5A31);
 const _pagePadding = EdgeInsets.fromLTRB(38, 20, 20, 20);
 const _pagePaddingLarge = EdgeInsets.fromLTRB(38, 24, 24, 24);
 const _notebookFont = 'casual';
-const _appVersionLabel = '1.0.0';
+const _appVersionLabel = '1.0.1';
 
 const _speciesIconAssets = {
   'black_bass': 'assets/images/species/black_bass.png',
