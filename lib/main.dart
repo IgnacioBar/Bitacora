@@ -255,7 +255,7 @@ class _AppBootstrapState extends State<AppBootstrap> {
 
   Future<void> _warmUpAssets() async {
     final assets = [
-      'assets/images/pescatronik_icon_transparent.png',
+      'assets/images/bitacora_icon_transparent.png',
       ..._speciesIconAssets.values,
     ];
     for (final asset in assets) {
@@ -401,7 +401,7 @@ class _NotebookLoadingView extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Image.asset(
-              'assets/images/pescatronik_icon_transparent.png',
+              'assets/images/bitacora_icon_transparent.png',
               width: large ? 84 : 58,
               height: large ? 84 : 58,
               fit: BoxFit.contain,
@@ -666,7 +666,7 @@ class _CoverTitleCard extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Image.asset(
-          'assets/images/pescatronik_icon_transparent.png',
+          'assets/images/bitacora_icon_transparent.png',
           width: 108,
           height: 108,
           fit: BoxFit.contain,
@@ -890,11 +890,7 @@ class CountryScreen extends StatelessWidget {
     appBar: AppBar(
       title: Row(
         children: [
-          Image.asset(
-            'assets/images/pescatronik_icon.png',
-            width: 36,
-            height: 36,
-          ),
+          Image.asset('assets/images/bitacora_icon.png', width: 36, height: 36),
           const SizedBox(width: 10),
           const Expanded(
             child: Text(
@@ -1046,7 +1042,7 @@ class _MenuAppIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Image.asset(
-    'assets/images/pescatronik_icon_transparent.png',
+    'assets/images/bitacora_icon_transparent.png',
     width: 58,
     height: 58,
     fit: BoxFit.contain,
@@ -1137,7 +1133,7 @@ class _AboutBitacoraScreenState extends State<AboutBitacoraScreen> {
                     child: Column(
                       children: [
                         Image.asset(
-                          'assets/images/pescatronik_icon_transparent.png',
+                          'assets/images/bitacora_icon_transparent.png',
                           width: 96,
                           height: 96,
                           fit: BoxFit.contain,

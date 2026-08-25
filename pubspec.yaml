@@ -67,8 +67,8 @@ flutter:
 
   assets:
     - assets/data/spain_catalog.json
-    - assets/images/pescatronik_icon.png
-    - assets/images/pescatronik_icon_transparent.png
+    - assets/images/bitacora_icon.png
+    - assets/images/bitacora_icon_transparent.png
     - assets/images/species/
 
   # To add assets to your application, add an assets section, like this:
