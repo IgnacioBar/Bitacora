@@ -1,5 +1,13 @@
 # Historial de versiones
 
+## v1.0.0
+
+- Primera versión estable oficial de Pescatronik.
+- Diario completo de capturas para España.
+- Biblioteca, filtros, mapas, GPS, fotos, copias de seguridad y compartir ubicaciones.
+- Optimización de fotos elegidas desde Galería Xiaomi/POCO o selector Android.
+- Proyecto preparado para GitHub.
+
 ## v3.6
 
 - APK release optimizada.

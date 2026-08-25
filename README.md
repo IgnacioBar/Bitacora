@@ -20,7 +20,7 @@ Pescatronik guarda los datos en el dispositivo. Al compartir ubicaciones solo se
 
 ## Estado actual
 
-Versión actual: 3.6.0.
+Versión actual: 1.0.0.
 
 Esta versión está pensada para uso personal en Android.
 
