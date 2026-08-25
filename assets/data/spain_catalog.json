@@ -1,0 +1,34 @@
+{
+  "countries": [
+    {
+      "id": "es",
+      "name": "España",
+      "waterTypes": [
+        {
+          "id": "freshwater",
+          "name": "Agua dulce",
+          "species": [
+            { "id": "black_bass", "commonName": "Black Bass", "scientificName": "Micropterus salmoides" },
+            { "id": "carp", "commonName": "Carpa", "scientificName": "Cyprinus carpio" },
+            { "id": "pike", "commonName": "Lucio", "scientificName": "Esox lucius" },
+            { "id": "brown_trout", "commonName": "Trucha común", "scientificName": "Salmo trutta" },
+            { "id": "wels_catfish", "commonName": "Siluro", "scientificName": "Silurus glanis" },
+            { "id": "barbel", "commonName": "Barbo", "scientificName": "Luciobarbus spp." }
+          ]
+        },
+        {
+          "id": "saltwater",
+          "name": "Agua salada",
+          "species": [
+            { "id": "european_seabass", "commonName": "Lubina", "scientificName": "Dicentrarchus labrax" },
+            { "id": "gilthead_bream", "commonName": "Dorada", "scientificName": "Sparus aurata" },
+            { "id": "white_seabream", "commonName": "Sargo", "scientificName": "Diplodus sargus" },
+            { "id": "atlantic_bluefin_tuna", "commonName": "Atún rojo", "scientificName": "Thunnus thynnus" },
+            { "id": "common_dentex", "commonName": "Dentón", "scientificName": "Dentex dentex" },
+            { "id": "cuttlefish_squid", "commonName": "Sepia / Calamar", "scientificName": "Sepia officinalis / Loligo vulgaris" }
+          ]
+        }
+      ]
+    }
+  ]
+}
