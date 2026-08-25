@@ -32,7 +32,7 @@ Ejemplos:
    - `flutter test`
    - `flutter build apk --debug`
 7. Guardar APK y ZIP del código en:
-   - `C:\Users\ignac\Desktop\Bitácora\vX.Y.Z`
+   - una carpeta local fuera del repositorio, por ejemplo `Bitácora/vX.Y.Z`
 8. Crear commit.
 9. Subir `develop`.
 10. Crear o mover el tag `vX.Y.Z`.
