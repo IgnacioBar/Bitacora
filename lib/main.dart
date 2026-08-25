@@ -680,14 +680,33 @@ class _CoverTitleCard extends StatelessWidget {
         Text(
           'Bitácora',
           textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.headlineMedium
-              ?.copyWith(fontSize: 40),
+          style: const TextStyle(
+            fontFamily: 'serif',
+            fontSize: 44,
+            height: 0.95,
+            color: _ink,
+            fontWeight: FontWeight.w700,
+            letterSpacing: 1.1,
+            shadows: [
+              Shadow(
+                color: Color(0x33906D3A),
+                blurRadius: 1.5,
+                offset: Offset(0.8, 1.1),
+              ),
+            ],
+          ),
         ),
-        const SizedBox(height: 4),
+        const SizedBox(height: 8),
         Text(
           'Diario de pesca',
           textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.titleLarge,
+          style: const TextStyle(
+            fontFamily: 'serif',
+            fontSize: 22,
+            color: _mapInk,
+            fontWeight: FontWeight.w600,
+            letterSpacing: 1.4,
+          ),
         ),
         const SizedBox(height: 16),
         const _CoverDivider(),
@@ -695,7 +714,8 @@ class _CoverTitleCard extends StatelessWidget {
         Text(
           'Capturas · Señuelos · Mapas · Recuerdos',
           textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.bodyMedium,
+          style: Theme.of(context).textTheme.bodyMedium
+              ?.copyWith(color: _mutedInk, fontSize: 15, letterSpacing: 0.5),
         ),
       ],
     ),
