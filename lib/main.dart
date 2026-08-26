@@ -33,7 +33,7 @@ const _mapInk = Color(0xFF6D5A31);
 const _pagePadding = EdgeInsets.fromLTRB(38, 20, 20, 20);
 const _pagePaddingLarge = EdgeInsets.fromLTRB(38, 24, 24, 24);
 const _notebookFont = 'casual';
-const _appVersionLabel = '1.0.1';
+const _appVersionLabel = '1.1.0';
 
 const _speciesIconAssets = {
   'black_bass': 'assets/images/species/black_bass.png',
@@ -3528,6 +3528,9 @@ class _AllCapturesMapScreenState extends State<AllCapturesMapScreen> {
                       path: point.photoPath!,
                       heroTag:
                           'shared-photo-${sharedMap.id}-${point.caughtAt.microsecondsSinceEpoch}',
+                      title: point.speciesName,
+                      subtitle:
+                          '${sharedMap.ownerName} · ${MaterialLocalizations.of(context).formatShortDate(point.caughtAt)}',
                     ),
                   ),
                 ),
@@ -4813,32 +4816,210 @@ class _CatchDetailScreenState extends State<CatchDetailScreen> {
   }
 }
 
-class FullScreenPhoto extends StatelessWidget {
-  const FullScreenPhoto({super.key, required this.path, required this.heroTag});
+class FullScreenPhoto extends StatefulWidget {
+  const FullScreenPhoto({
+    super.key,
+    required this.path,
+    required this.heroTag,
+    this.title = 'Foto de la captura',
+    this.subtitle,
+  });
 
   final String path;
   final String heroTag;
+  final String title;
+  final String? subtitle;
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-    backgroundColor: Colors.black,
-    appBar: AppBar(
+  State<FullScreenPhoto> createState() => _FullScreenPhotoState();
+}
+
+class _FullScreenPhotoState extends State<FullScreenPhoto> {
+  final _transformationController = TransformationController();
+  TapDownDetails? _doubleTapDetails;
+  bool _chromeVisible = true;
+
+  @override
+  void dispose() {
+    _transformationController.dispose();
+    super.dispose();
+  }
+
+  void _toggleChrome() {
+    setState(() => _chromeVisible = !_chromeVisible);
+  }
+
+  void _resetZoom() {
+    HapticFeedback.selectionClick();
+    _transformationController.value = Matrix4.identity();
+  }
+
+  void _handleDoubleTap() {
+    final tapPosition = _doubleTapDetails?.localPosition;
+    final currentScale = _transformationController.value.getMaxScaleOnAxis();
+    if (currentScale > 1.05 || tapPosition == null) {
+      _resetZoom();
+      return;
+    }
+    HapticFeedback.selectionClick();
+    const targetScale = 2.6;
+    final matrix = Matrix4.identity()
+      ..translateByDouble(
+        -tapPosition.dx * (targetScale - 1),
+        -tapPosition.dy * (targetScale - 1),
+        0,
+        1,
+      )
+      ..scaleByDouble(targetScale, targetScale, 1, 1);
+    _transformationController.value = matrix;
+  }
+
+  @override
+  Widget build(BuildContext context) => AnnotatedRegion<SystemUiOverlayStyle>(
+    value: SystemUiOverlayStyle.light,
+    child: Scaffold(
       backgroundColor: Colors.black,
-      foregroundColor: Colors.white,
-      title: const Text('Foto de la captura'),
-    ),
-    body: Center(
-      child: Hero(
-        tag: heroTag,
-        child: InteractiveViewer(
-          minScale: 0.8,
-          maxScale: 4,
-          child: Image.file(
-            File(path),
-            fit: BoxFit.contain,
-            errorBuilder: (_, _, _) => const _PhotoError(isDark: true),
+      body: Stack(
+        children: [
+          Positioned.fill(
+            child: GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onTap: _toggleChrome,
+              onDoubleTapDown: (details) => _doubleTapDetails = details,
+              onDoubleTap: _handleDoubleTap,
+              child: Center(
+                child: Hero(
+                  tag: widget.heroTag,
+                  child: InteractiveViewer(
+                    transformationController: _transformationController,
+                    minScale: 0.75,
+                    maxScale: 5,
+                    boundaryMargin: const EdgeInsets.all(120),
+                    clipBehavior: Clip.none,
+                    child: Image.file(
+                      File(widget.path),
+                      fit: BoxFit.contain,
+                      gaplessPlayback: true,
+                      errorBuilder: (_, _, _) =>
+                          const _PhotoError(isDark: true),
+                    ),
+                  ),
+                ),
+              ),
+            ),
           ),
-        ),
+          Positioned.fill(
+            child: IgnorePointer(
+              ignoring: !_chromeVisible,
+              child: AnimatedOpacity(
+                opacity: _chromeVisible ? 1 : 0,
+                duration: const Duration(milliseconds: 180),
+                child: const DecoratedBox(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Color(0xCC000000),
+                        Color(0x00000000),
+                        Color(0x99000000),
+                      ],
+                      stops: [0, 0.42, 1],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          SafeArea(
+            child: AnimatedOpacity(
+              opacity: _chromeVisible ? 1 : 0,
+              duration: const Duration(milliseconds: 180),
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
+                child: Row(
+                  children: [
+                    IconButton.filledTonal(
+                      tooltip: 'Cerrar',
+                      onPressed: () => Navigator.of(context).pop(),
+                      icon: const Icon(Icons.close),
+                    ),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            widget.title,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: Theme.of(context).textTheme.titleMedium
+                                ?.copyWith(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                          ),
+                          if (widget.subtitle?.trim().isNotEmpty == true) ...[
+                            const SizedBox(height: 2),
+                            Text(
+                              widget.subtitle!.trim(),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: Theme.of(context).textTheme.bodySmall
+                                  ?.copyWith(color: Colors.white70),
+                            ),
+                          ],
+                        ],
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    IconButton.filledTonal(
+                      tooltip: 'Restablecer zoom',
+                      onPressed: _resetZoom,
+                      icon: const Icon(Icons.fit_screen_outlined),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            left: 24,
+            right: 24,
+            bottom: 24 + MediaQuery.paddingOf(context).bottom,
+            child: IgnorePointer(
+              child: AnimatedOpacity(
+                opacity: _chromeVisible ? 1 : 0,
+                duration: const Duration(milliseconds: 180),
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    color: Colors.black.withValues(alpha: 0.42),
+                    borderRadius: BorderRadius.circular(24),
+                    border: Border.all(color: Colors.white24),
+                  ),
+                  child: const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.touch_app_outlined, color: Colors.white70),
+                        SizedBox(width: 8),
+                        Flexible(
+                          child: Text(
+                            'Doble toque para ampliar · arrastra para moverte',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(color: Colors.white70),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     ),
   );
@@ -5050,6 +5231,18 @@ class _DetailPhotoCard extends StatelessWidget {
                           builder: (_) => FullScreenPhoto(
                             path: photoPath,
                             heroTag: 'catch-photo-${entry.id}',
+                            title:
+                                _speciesFor(entry)?.commonName ??
+                                'Foto de la captura',
+                            subtitle:
+                                [
+                                      entry.locationName?.trim(),
+                                      MaterialLocalizations.of(context)
+                                          .formatShortDate(entry.caughtAt),
+                                    ]
+                                    .whereType<String>()
+                                    .where((value) => value.isNotEmpty)
+                                    .join(' · '),
                           ),
                         ),
                       ),

@@ -1,5 +1,12 @@
 # Historial de versiones
 
+## v1.1.0
+
+- Mejorada la visualización de fotos de capturas a pantalla completa.
+- Añadido zoom con doble toque y botón para restablecer la vista.
+- Añadida cabecera flotante con información básica de la captura.
+- Pulido el estilo del visor de fotos con fondo oscuro y controles más limpios.
+
 ## v1.0.1
 
 - Versión de mantenimiento tras la primera pre-release pública.
