@@ -34,7 +34,42 @@ const _mapInk = Color(0xFF6D5A31);
 const _pagePadding = EdgeInsets.fromLTRB(38, 20, 20, 20);
 const _pagePaddingLarge = EdgeInsets.fromLTRB(38, 24, 24, 24);
 const _notebookFont = 'casual';
-const _appVersionLabel = '1.2.0';
+const _appVersionLabel = '1.3.0';
+
+const _versionHistory = [
+  _VersionNote(
+    version: '1.3.0',
+    title: 'Control de versiones',
+    details: [
+      'Nueva pantalla de historial de versiones dentro de Acerca de.',
+      'Mejoras de comprobación para mantener fechas y textos en español.',
+    ],
+  ),
+  _VersionNote(
+    version: '1.2.0',
+    title: 'Pulido de idioma y arranque',
+    details: [
+      'Fechas, meses y calendarios localizados para España.',
+      'Arranque inicial más ligero al cargar datos y recursos en segundo plano.',
+    ],
+  ),
+  _VersionNote(
+    version: '1.1.0',
+    title: 'Visualización de fotos',
+    details: [
+      'Mejorada la vista de fotos de capturas en pantalla completa.',
+      'Demo y datos de presentación preparados para enseñar la app.',
+    ],
+  ),
+  _VersionNote(
+    version: '1.0.0',
+    title: 'Primera versión estable',
+    details: [
+      'Diario de capturas, biblioteca, mapas, filtros y copia de seguridad.',
+      'Portada estilo diario de pesca e interfaz visual tipo cuaderno.',
+    ],
+  ),
+];
 
 const _speciesIconAssets = {
   'black_bass': 'assets/images/species/black_bass.png',
@@ -1206,6 +1241,26 @@ class _AboutBitacoraScreenState extends State<AboutBitacoraScreen> {
               _AnimatedEntry(
                 delay: const Duration(milliseconds: 210),
                 child: Card(
+                  child: ListTile(
+                    leading: const CircleAvatar(
+                      backgroundColor: _stampPaper,
+                      foregroundColor: _accentBrown,
+                      child: Icon(Icons.history_edu_outlined),
+                    ),
+                    title: const Text('Historial de versiones'),
+                    subtitle: const Text('Qué ha cambiado en cada entrega'),
+                    trailing: const Icon(Icons.chevron_right),
+                    onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (_) => const VersionHistoryScreen(),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              _AnimatedEntry(
+                delay: const Duration(milliseconds: 280),
+                child: Card(
                   child: Padding(
                     padding: const EdgeInsets.all(18),
                     child: Column(
@@ -1230,6 +1285,83 @@ class _AboutBitacoraScreenState extends State<AboutBitacoraScreen> {
       ),
     ),
   );
+}
+
+class VersionHistoryScreen extends StatelessWidget {
+  const VersionHistoryScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) => Scaffold(
+    appBar: AppBar(title: const Text('Historial')),
+    body: _PaperSheet(
+      child: ListView.separated(
+        padding: _pagePaddingLarge,
+        itemCount: _versionHistory.length,
+        separatorBuilder: (_, _) => const SizedBox(height: 8),
+        itemBuilder: (context, index) {
+          final note = _versionHistory[index];
+          return _AnimatedEntry(
+            delay: Duration(milliseconds: 70 * index),
+            child: Card(
+              child: Padding(
+                padding: const EdgeInsets.all(18),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        _NotebookTag(label: 'v${note.version}'),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: Text(
+                            note.title,
+                            style: Theme.of(context).textTheme.titleLarge,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 12),
+                    ...note.details.map(
+                      (detail) => Padding(
+                        padding: const EdgeInsets.only(bottom: 8),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Padding(
+                              padding: EdgeInsets.only(top: 4),
+                              child: Icon(
+                                Icons.check_circle_outline,
+                                size: 18,
+                                color: _accentBrown,
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            Expanded(child: Text(detail)),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    ),
+  );
+}
+
+class _VersionNote {
+  const _VersionNote({
+    required this.version,
+    required this.title,
+    required this.details,
+  });
+
+  final String version;
+  final String title;
+  final List<String> details;
 }
 
 class _AppDiarySummary {
