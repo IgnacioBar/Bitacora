@@ -6,6 +6,7 @@ import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
@@ -33,7 +34,7 @@ const _mapInk = Color(0xFF6D5A31);
 const _pagePadding = EdgeInsets.fromLTRB(38, 20, 20, 20);
 const _pagePaddingLarge = EdgeInsets.fromLTRB(38, 24, 24, 24);
 const _notebookFont = 'casual';
-const _appVersionLabel = '1.1.0';
+const _appVersionLabel = '1.2.0';
 
 const _speciesIconAssets = {
   'black_bass': 'assets/images/species/black_bass.png',
@@ -71,6 +72,13 @@ class BitacoraApp extends StatelessWidget {
   Widget build(BuildContext context) => MaterialApp(
     title: 'Bitácora',
     debugShowCheckedModeBanner: false,
+    locale: const Locale('es', 'ES'),
+    supportedLocales: const [Locale('es', 'ES')],
+    localizationsDelegates: const [
+      GlobalMaterialLocalizations.delegate,
+      GlobalWidgetsLocalizations.delegate,
+      GlobalCupertinoLocalizations.delegate,
+    ],
     theme: ThemeData(
       colorScheme: ColorScheme.fromSeed(
         seedColor: _accentBrown,
@@ -246,11 +254,9 @@ class _AppBootstrapState extends State<AppBootstrap> {
   }
 
   Future<void> _prepareApp() async {
-    await Future.wait([
-      CatchRepository.instance.warmUp(),
-      _warmUpAssets(),
-      Future<void>.delayed(const Duration(milliseconds: 650)),
-    ]);
+    unawaited(CatchRepository.instance.warmUp());
+    unawaited(_warmUpAssets());
+    await Future<void>.delayed(const Duration(milliseconds: 250));
   }
 
   Future<void> _warmUpAssets() async {
